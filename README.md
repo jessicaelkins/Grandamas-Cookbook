@@ -10,7 +10,7 @@ be given a custom name. The application will be able to store recipes under diff
 **IDE used:** 
 Eclipse
 
-**Contributors:** 
+**Contributors:**  
 Jessica Elkins and Daniel Eichhorn
 _____________________________________
 
