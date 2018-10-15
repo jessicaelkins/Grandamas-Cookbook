@@ -4,7 +4,7 @@
 
 | Entity           | Attributes                                        | 
 | :-----------------:|:-------------:                                    | 
-| Recipes            | Recipe_ID (Primary Key), Recipe_Name, Description | 
+| Recipes            | Recipe_ID (Primary Key), Recipe_Name, Recipe_Type | 
 | Recipe_Ingredients | Recipe_Ingredients_ID (Primary Key), ID_Recipe (Foreign Key), ID_Ingredient (Foreign Key) |         
 | Ingredients        | Ingredient_ID (Primary Key), Name |
 
