@@ -1,31 +1,33 @@
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
+
+import javax.swing.ButtonGroup;
+
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
+
 
 public class AddRecipeWindow {
 
 	private JFrame frameAddRecipe;
 	private JTextField txtRecipeName;
-	private JTextField txtIngredient;
-	private JTextField txtIngredient_1;
-	private JTextField txtIngredient_2;
-	private JComboBox comboBox;
-	private JTextField txtIngredient_3;
 	private JPanel panelSubmit;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void newRecipe() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -52,13 +54,14 @@ public class AddRecipeWindow {
 		
 		// create add recipe frame
 		frameAddRecipe = new JFrame();
-		frameAddRecipe.setBounds(100, 100, 1280, 780);
+		frameAddRecipe.setTitle("Add Recipe");
+		frameAddRecipe.setBounds(100, 100, 1280, 732);
 		frameAddRecipe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameAddRecipe.getContentPane().setLayout(null);
 		
 		// create recipe entry panel
 		JPanel panelRecipe = new JPanel();
-		panelRecipe.setBounds(28, 169, 591, 417);
+		panelRecipe.setBounds(27, 150, 591, 161);
 		frameAddRecipe.getContentPane().add(panelRecipe);
 		panelRecipe.setLayout(null);
 		
@@ -66,7 +69,7 @@ public class AddRecipeWindow {
 		JLabel lblNewLabel = new JLabel("Recipe Name:");
 		lblNewLabel.setBounds(28, 27, 129, 21);
 		panelRecipe.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		//create recipe name text box
 		txtRecipeName = new JTextField();
@@ -77,59 +80,19 @@ public class AddRecipeWindow {
 		
 		// create ingredients label
 		JLabel lblNewLabel_1 = new JLabel("Ingredients:\r\n");
-		lblNewLabel_1.setBounds(28, 129, 142, 26);
+		lblNewLabel_1.setBounds(28, 135, 142, 26);
 		panelRecipe.add(lblNewLabel_1);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		
-		
-		//create ingredient text boxes
-		txtIngredient = new JTextField();
-		txtIngredient.setBounds(28, 169, 329, 34);
-		panelRecipe.add(txtIngredient);
-		txtIngredient.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtIngredient.setColumns(10);
-		
-		txtIngredient_1 = new JTextField();
-		txtIngredient_1.setBounds(28, 222, 329, 34);
-		panelRecipe.add(txtIngredient_1);
-		txtIngredient_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtIngredient_1.setColumns(10);
-		
-		txtIngredient_2 = new JTextField();
-		txtIngredient_2.setBounds(28, 278, 329, 34);
-		panelRecipe.add(txtIngredient_2);
-		txtIngredient_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtIngredient_2.setColumns(10);
-		
-		txtIngredient_3 = new JTextField();
-		txtIngredient_3.setBounds(28, 334, 329, 34);
-		panelRecipe.add(txtIngredient_3);
-		txtIngredient_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtIngredient_3.setColumns(10);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		// create category label
 		JLabel lblNewLabel_2 = new JLabel("Category:");
-		lblNewLabel_2.setBounds(400, 134, 90, 23);
+		lblNewLabel_2.setBounds(417, 136, 90, 23);
 		panelRecipe.add(lblNewLabel_2);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		
-		// create combo box for different recipe categories
-		comboBox = new JComboBox();
-		comboBox.setBounds(386, 167, 136, 34);
-		panelRecipe.add(comboBox);
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Breakfast", "Lunch", "Dinner", "Dessert"}));
-		comboBox.setMaximumRowCount(4);
-		
-		// create radio button to add additional ingredients
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Add Additional Ingredients");
-		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		rdbtnNewRadioButton.setBounds(374, 344, 211, 21);
-		panelRecipe.add(rdbtnNewRadioButton);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		// create add recipe panel
 		JPanel panelAddRecipe = new JPanel();
-		panelAddRecipe.setBounds(95, 58, 335, 78);
+		panelAddRecipe.setBounds(107, 46, 335, 78);
 		frameAddRecipe.getContentPane().add(panelAddRecipe);
 		panelAddRecipe.setLayout(null);
 		
@@ -141,21 +104,92 @@ public class AddRecipeWindow {
 		
 		// create submit recipe panel
 		panelSubmit = new JPanel();
-		panelSubmit.setBounds(862, 641, 257, 78);
+		panelSubmit.setBounds(701, 597, 257, 78);
 		frameAddRecipe.getContentPane().add(panelSubmit);
 		panelSubmit.setLayout(null);
 		
 		// create submit recipe button
-		JButton btnSubmitButton = new JButton("Submit Recipe");
-		btnSubmitButton.setBounds(32, 10, 204, 58);
+		JButton btnSubmitButton = new JButton("SUBMIT RECIPE");
+		btnSubmitButton.setBounds(29, 10, 204, 58);
 		panelSubmit.add(btnSubmitButton);
 		btnSubmitButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		// create panel for picture 
 		JPanel panelPicture = new JPanel();
-		panelPicture.setBounds(691, 82, 532, 504);
+		panelPicture.setBounds(701, 150, 525, 302);
 		frameAddRecipe.getContentPane().add(panelPicture);
+		panelPicture.setLayout(null);
+		
+		JLabel lblPic = new JLabel("");
+		lblPic.setBounds(0, 0, 515, 302);
+		panelPicture.add(lblPic);
+		
+		JPanel panel_TA = new JPanel();
+		panel_TA.setBounds(27, 321, 386, 227);
+		frameAddRecipe.getContentPane().add(panel_TA);
+		panel_TA.setLayout(null);
+		
+		JTextArea jta = new JTextArea();
+		jta.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		jta.setLineWrap(true);
+		
+		JScrollPane sp = new JScrollPane(jta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		sp.setLocation(27, 0);
+		sp.setSize(359, 226);
+		
+		
+		panel_TA.add(sp);
+		
+		JPanel panel_RB = new JPanel();
+		panel_RB.setBounds(423, 321, 195, 227);
+		frameAddRecipe.getContentPane().add(panel_RB);
+		panel_RB.setLayout(null);
+		
+		JRadioButton rdbtnBreakfast = new JRadioButton(" Breakfast");
+		rdbtnBreakfast.setSelected(true);
+		rdbtnBreakfast.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnBreakfast.setBounds(19, 16, 125, 21);
+		panel_RB.add(rdbtnBreakfast);
+		
+		JRadioButton rdbtnLunch = new JRadioButton(" Lunch");
+		rdbtnLunch.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnLunch.setBounds(19, 51, 125, 21);
+		panel_RB.add(rdbtnLunch);
+		
+		JRadioButton rdbtnDinner = new JRadioButton(" Dinner");
+		rdbtnDinner.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnDinner.setBounds(19, 86, 125, 21);
+		panel_RB.add(rdbtnDinner);
+		
+		JRadioButton rdbtnDessert = new JRadioButton(" Dessert");
+		rdbtnDessert.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnDessert.setBounds(19, 120, 125, 21);
+		panel_RB.add(rdbtnDessert);
+		
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(rdbtnBreakfast);
+		bg.add(rdbtnLunch);
+		bg.add(rdbtnDinner);
+		bg.add(rdbtnDessert);
+		
+		JPanel panelBack = new JPanel();
+		panelBack.setBounds(968, 597, 220, 78);
+		frameAddRecipe.getContentPane().add(panelBack);
+		panelBack.setLayout(null);
+		
+		JButton buttonBack = new JButton("BACK");
+		buttonBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				MenuWindow.main(null);
+				frameAddRecipe.dispose();
+			}
+		});
+		buttonBack.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		buttonBack.setBounds(10, 10, 186, 58);
+		panelBack.add(buttonBack);
 	}
 }
+
 
 
