@@ -3,6 +3,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 
@@ -14,6 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 
@@ -55,13 +61,13 @@ public class AddRecipeWindow {
 		// create add recipe frame
 		frameAddRecipe = new JFrame();
 		frameAddRecipe.setTitle("Add Recipe");
-		frameAddRecipe.setBounds(100, 100, 1280, 732);
+		frameAddRecipe.setBounds(100, 100, 629, 644);
 		frameAddRecipe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameAddRecipe.getContentPane().setLayout(null);
 		
 		// create recipe entry panel
 		JPanel panelRecipe = new JPanel();
-		panelRecipe.setBounds(27, 150, 591, 161);
+		panelRecipe.setBounds(10, 98, 591, 161);
 		frameAddRecipe.getContentPane().add(panelRecipe);
 		panelRecipe.setLayout(null);
 		
@@ -92,7 +98,7 @@ public class AddRecipeWindow {
 		
 		// create add recipe panel
 		JPanel panelAddRecipe = new JPanel();
-		panelAddRecipe.setBounds(107, 46, 335, 78);
+		panelAddRecipe.setBounds(127, 10, 335, 78);
 		frameAddRecipe.getContentPane().add(panelAddRecipe);
 		panelAddRecipe.setLayout(null);
 		
@@ -102,49 +108,37 @@ public class AddRecipeWindow {
 		panelAddRecipe.add(lblAddRecipe);
 		lblAddRecipe.setFont(new Font("Tahoma", Font.PLAIN, 45));
 		
-		// create submit recipe panel
-		panelSubmit = new JPanel();
-		panelSubmit.setBounds(701, 597, 257, 78);
-		frameAddRecipe.getContentPane().add(panelSubmit);
-		panelSubmit.setLayout(null);
-		
-		// create submit recipe button
-		JButton btnSubmitButton = new JButton("SUBMIT RECIPE");
-		btnSubmitButton.setBounds(29, 10, 204, 58);
-		panelSubmit.add(btnSubmitButton);
-		btnSubmitButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		
-		// create panel for picture 
-		JPanel panelPicture = new JPanel();
-		panelPicture.setBounds(701, 150, 525, 302);
-		frameAddRecipe.getContentPane().add(panelPicture);
-		panelPicture.setLayout(null);
-		
-		JLabel lblPic = new JLabel("");
-		lblPic.setBounds(0, 0, 515, 302);
-		panelPicture.add(lblPic);
-		
-		JPanel panel_TA = new JPanel();
-		panel_TA.setBounds(27, 321, 386, 227);
-		frameAddRecipe.getContentPane().add(panel_TA);
-		panel_TA.setLayout(null);
-		
 		JTextArea jta = new JTextArea();
 		jta.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		jta.setLineWrap(true);
 		
+		// create submit recipe panel
+		panelSubmit = new JPanel();
+		panelSubmit.setBounds(46, 506, 225, 89);
+		frameAddRecipe.getContentPane().add(panelSubmit);
+		panelSubmit.setLayout(null);
+		
+		// create panel for text area
+		JPanel panel_TA = new JPanel();
+		panel_TA.setBounds(0, 269, 386, 227);
+		frameAddRecipe.getContentPane().add(panel_TA);
+		panel_TA.setLayout(null);
+		
+		// add scroll bar to text area 
 		JScrollPane sp = new JScrollPane(jta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		sp.setLocation(27, 0);
 		sp.setSize(359, 226);
 		
-		
+		// add scroll bar to panel
 		panel_TA.add(sp);
 		
+		// create panel to hold radio buttons
 		JPanel panel_RB = new JPanel();
-		panel_RB.setBounds(423, 321, 195, 227);
+		panel_RB.setBounds(406, 269, 195, 227);
 		frameAddRecipe.getContentPane().add(panel_RB);
 		panel_RB.setLayout(null);
 		
+		// created breakfast, lunch, dinner, and dessert radio buttons
 		JRadioButton rdbtnBreakfast = new JRadioButton(" Breakfast");
 		rdbtnBreakfast.setSelected(true);
 		rdbtnBreakfast.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -166,30 +160,116 @@ public class AddRecipeWindow {
 		rdbtnDessert.setBounds(19, 120, 125, 21);
 		panel_RB.add(rdbtnDessert);
 		
+		// added all four radio buttons to a button group
 		ButtonGroup bg = new ButtonGroup();
 		bg.add(rdbtnBreakfast);
 		bg.add(rdbtnLunch);
 		bg.add(rdbtnDinner);
 		bg.add(rdbtnDessert);
 		
+		// create panel for back button
 		JPanel panelBack = new JPanel();
-		panelBack.setBounds(968, 597, 220, 78);
+		panelBack.setBounds(313, 506, 201, 89);
 		frameAddRecipe.getContentPane().add(panelBack);
 		panelBack.setLayout(null);
 		
+		//create back button
 		JButton buttonBack = new JButton("BACK");
+		buttonBack.setToolTipText("Back to main menu");
 		buttonBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				MenuWindow.main(null);
+				GrandmasCookbook.main(null);
 				frameAddRecipe.dispose();
 			}
 		});
 		buttonBack.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		buttonBack.setBounds(10, 10, 186, 58);
 		panelBack.add(buttonBack);
+		
+		// create submit recipe button
+		JButton btnSubmitButton = new JButton("SUBMIT RECIPE");
+		btnSubmitButton.setToolTipText("Save recipe to file");
+		btnSubmitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String fileName1 = "Breakfast.txt";
+				String fileName2 = "Lunch.txt";
+				String fileName3 = "Dinner.txt";
+				String fileName4 = "Dessert.txt";
+				String csvSplitBy = ",";
+				
+				try {
+					//add if statement to choose which file to save to based on user's choice
+					if (rdbtnBreakfast.isSelected()) {
+					//prints user input to breakfast file
+					FileWriter fileWriter = new FileWriter(fileName1, true);
+					
+					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+					
+					PrintWriter printWriter = new PrintWriter(bufferedWriter);
+					// printing what the user put in the text fields to the file
+					printWriter.println( txtRecipeName.getText() + csvSplitBy + jta.getText());
+					printWriter.flush();
+					printWriter.close();
+					
+					} else if (rdbtnLunch.isSelected()) {
+						//prints user input to lunch file
+						FileWriter fileWriter = new FileWriter(fileName2, true);
+						
+						BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+						
+						PrintWriter printWriter = new PrintWriter(bufferedWriter);
+						// printing what the user put in the text fields to the file
+						printWriter.println( txtRecipeName.getText() + csvSplitBy + jta.getText());
+						printWriter.flush();
+						printWriter.close();
+						
+					} else if (rdbtnDinner.isSelected()) {
+						//prints user input to dinner file
+						FileWriter fileWriter = new FileWriter(fileName3, true);
+						
+						BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+						
+						PrintWriter printWriter = new PrintWriter(bufferedWriter);
+						// printing what the user put in the text fields to the file
+						printWriter.println( txtRecipeName.getText() + csvSplitBy + jta.getText());
+						printWriter.flush();
+						printWriter.close();
+						
+					} else {
+						// prints user input to dessert file
+						FileWriter fileWriter = new FileWriter(fileName4, true);
+						
+						BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+						
+						PrintWriter printWriter = new PrintWriter(bufferedWriter);
+						// printing what the user put in the text fields to the file
+						printWriter.println( txtRecipeName.getText() + csvSplitBy + jta.getText());
+						printWriter.flush();
+						printWriter.close();
+						
+					}
+					
+					//clears text fields after user hits submit
+					txtRecipeName.setText(null);
+					jta.setText(null);
+					
+					//confirms to the user that the data has been uploaded to the file
+					JOptionPane.showMessageDialog(null, "Recipe Info Submitted!");
+					
+					}
+			    catch(IOException ex) {
+					//lets user know there was an error printing to the file
+					JOptionPane.showMessageDialog(null, "Trouble writing to file");
+				}
+			}
+		});
+		btnSubmitButton.setBounds(10, 10, 204, 58);
+		panelSubmit.add(btnSubmitButton);
+		btnSubmitButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		
+		
+		
 	}
 }
-
-
-
