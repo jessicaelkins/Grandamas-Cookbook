@@ -5,7 +5,7 @@ Welcome to Grandma's Cookbook! Grandma's Cookbook is going to be a recipe storag
 The storage feature allows users to input recipes, add ingredients, and save recipes. Each recipe can 
 be given a custom name. The application will be able to store recipes under different categories such as breakfast, lunch, dinner, and dessert. 
 
-<a href="https://app.moqups.com/jelkins/6NXKTIAfwo/view">Wire Frame</a>
+<a href="https://app.moqups.com/jelkins/6NXKTIAfwo/view">Wire Frame 2.0</a>
 
 **IDE used:** 
 Eclipse
