@@ -137,7 +137,7 @@ public class BreakfastRecipes {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 			
 			//set first line equal to column names
-			 String firstLine = br.readLine().trim();
+			 String firstLine = "RECIPE NAME, INGREDIENTS";
 	            String[] columnsName = firstLine.split(",");
 	            DefaultTableModel model = (DefaultTableModel)table.getModel();
 	            model.setColumnIdentifiers(columnsName);
