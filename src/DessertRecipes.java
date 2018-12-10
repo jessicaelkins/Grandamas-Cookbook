@@ -129,7 +129,7 @@ private void initialize() {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 			
 			//set first line equal to column names
-			 String firstLine = br.readLine().trim();
+			 String firstLine = "RECIPE NAME, INGREDIENTS";
 	            String[] columnsName = firstLine.split(",");
 	            DefaultTableModel model = (DefaultTableModel)table.getModel();
 	            model.setColumnIdentifiers(columnsName);
@@ -189,7 +189,7 @@ private void initialize() {
 			
 		} catch (IOException ex) {
 			//displays error message if file cannot be read
-			JOptionPane.showMessageDialog(null, "Error reading file.");
+			JOptionPane.showMessageDialog(null, "Add Recipe First.");
 		
 		}
 		
