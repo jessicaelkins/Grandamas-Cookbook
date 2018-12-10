@@ -199,7 +199,7 @@ public class BreakfastRecipes {
 	            
 		} catch (IOException ex) {
 			//lets user know there was an error reading the file
-			JOptionPane.showMessageDialog(null, "Error reading file.");
+			JOptionPane.showMessageDialog(null, "Add Recipe First.");
 		}
 		
 		
